@@ -201,9 +201,70 @@ Successfully implemented:
 
 This workflow mirrors real-world usage in CI/CD pipelines and front-end deployments.
 
+---
 
+## Day 5 — AWS Networking Fundamentals (VPC)
+
+### Networking Context
+Explored AWS Virtual Private Cloud (VPC) to understand how cloud networking enables secure and public access to EC2 instances.
 
 ---
+
+### VPC Architecture Exploration
+
+Reviewed the default AWS VPC and identified core networking components:
+
+- Virtual Private Cloud (VPC)
+- Subnets
+- Route Tables
+- Internet Gateway
+
+#### Engineering Insight
+VPC acts as an isolated virtual network where all AWS resources operate securely.
+
+---
+
+### Subnet & Routing Configuration
+
+- Inspected subnet settings and **auto-assign public IP**
+- Verified default route configuration:
+
+`0.0.0.0/0 → Internet Gateway`
+
+#### Technical Understanding
+Route tables determine how network traffic flows inside and outside the VPC.
+
+---
+
+### Internet Connectivity Flow
+
+Verified Internet Gateway attachment and mapped the full traffic path:
+
+**Internet → Internet Gateway → Route Table → Public Subnet → EC2 → Security Group**
+
+#### Architecture Insight
+Public accessibility requires correct configuration across multiple networking layers, not just instance settings.
+
+---
+
+### Public vs Private Subnet Design
+
+Studied production architecture best practices:
+
+- **Public Subnet:** Web servers, Load balancers
+- **Private Subnet:** Databases, internal services
+
+#### Security Consideration
+Sensitive services should never be directly exposed to the public internet.
+
+---
+
+### Outcome
+
+Established foundational understanding of AWS networking, traffic routing and subnet design principles required for secure and scalable cloud architectures.
+
+---
+
 ## 🎯 Repository Objective
 
 This repository will progressively demonstrate implementation of:
