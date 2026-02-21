@@ -137,7 +137,73 @@ These are core competencies required for DevOps and infrastructure operations ro
 
 ---
 
+---
 
+## Day 4 — Amazon S3 & Static Website Hosting
+
+### Service Overview
+Implemented object storage and static website hosting using Amazon S3 to understand cloud storage architecture and public content delivery.
+
+---
+
+### S3 Bucket Provisioning
+
+- Created General Purpose S3 bucket in **ap-south-1 (Mumbai)**
+- Reviewed global bucket naming requirements
+- Understood region selection and data locality considerations
+
+#### Engineering Insight
+S3 is a globally distributed object storage service commonly used for application assets, backups, logs and static site hosting.
+
+---
+
+### Public Access Configuration
+
+- Disabled default *Block Public Access* configuration
+- Implemented **Bucket Policy** allowing `s3:GetObject`
+- Reviewed differences between:
+  - Legacy ACLs
+  - Bucket Policies (recommended approach)
+
+#### Security Consideration
+Access to S3 objects is denied by default. Explicit policies are required to safely expose public content.
+
+---
+
+### Object Storage Hands-On
+
+- Uploaded image and text files
+- Generated public object URLs
+- Verified accessibility from the internet
+
+#### Validation
+Confirmed that objects can be accessed publicly only when policy permissions allow read access.
+
+---
+
+### Static Website Hosting
+
+- Enabled **Static Website Hosting** feature
+- Deployed basic `index.html`
+- Accessed site using S3 website endpoint
+
+#### Operational Understanding
+Validated how S3 can host static front-end applications without requiring a traditional web server.
+
+---
+
+### Outcome
+
+Successfully implemented:
+- Cloud object storage
+- Public access policy configuration
+- Static website hosting using S3
+
+This workflow mirrors real-world usage in CI/CD pipelines and front-end deployments.
+
+
+
+---
 ## 🎯 Repository Objective
 
 This repository will progressively demonstrate implementation of:
