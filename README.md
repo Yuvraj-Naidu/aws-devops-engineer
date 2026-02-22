@@ -265,6 +265,136 @@ Established foundational understanding of AWS networking, traffic routing and su
 
 ---
 
+## Day 6 — Docker Runtime Deployment on EC2
+
+### Environment
+
+Configured Docker Engine on an Ubuntu-based EC2 instance to enable containerized workload execution within the existing cloud environment.
+
+---
+
+### Docker Engine Installation
+
+- Installed Docker Engine packages
+- Verified Docker service status via systemd
+- Confirmed daemon responsiveness
+
+#### Access Control Issue
+
+Non-root user execution of Docker commands failed due to socket permission restrictions.
+
+#### Remediation
+
+- Added active user to `docker` group
+- Reinitialized session to refresh group membership
+- Validated non-sudo container execution
+
+---
+
+### Container Validation
+
+- Pulled `hello-world` image from Docker Hub
+- Executed container to confirm runtime functionality
+
+Verified:
+- Image retrieval
+- Container creation
+- Successful execution lifecycle
+
+---
+
+### Nginx Container Deployment
+
+- Pulled official Nginx image
+- Launched container with explicit port binding:
+
+`Host Port 8080 → Container Port 80`
+
+Validated:
+- Container state
+- Port exposure
+- Service response via public IP
+
+---
+
+### Network Layer Adjustment
+
+Updated EC2 Security Group configuration to allow inbound traffic on TCP 8080 to align with container port mapping.
+
+---
+
+### Operational Outcome
+
+Successfully transitioned from host-level service deployment to containerized workload execution.
+
+Confirmed external accessibility of containerized Nginx service over public network interface.
+
+---
+
+---
+
+## Day 7 — Docker Container Lifecycle & Operational Debugging
+
+### Operational Context
+
+Focused on container lifecycle management and runtime observability within the EC2-hosted Docker environment.
+
+---
+
+### Container Lifecycle Management
+
+- Enumerated active containers using `docker ps`
+- Inspected all containers (including stopped) using `docker ps -a`
+- Executed lifecycle commands:
+  - `docker stop`
+  - `docker start`
+  - `docker restart`
+
+#### Operational Understanding
+Validated state transitions between running and exited containers. Confirmed that container processes are ephemeral and dependent on runtime state.
+
+---
+
+### Runtime Observability
+
+- Inspected container output using `docker logs`
+- Analyzed log stream for application behavior and runtime events
+
+#### Engineering Insight
+Container logs serve as primary debugging surface in containerized environments, especially when external logging systems are not configured.
+
+---
+
+### Interactive Container Access
+
+- Accessed running container using `docker exec`
+- Explored container filesystem structure
+- Reviewed application-level configuration inside runtime environment
+
+#### Technical Observation
+Confirmed container isolation model — runtime environment is isolated from host while sharing kernel resources.
+
+---
+
+### Container Cleanup & Resource Management
+
+- Stopped containers prior to removal
+- Removed unused containers
+- Observed distinction between:
+  - Stopping a container (preserves state)
+  - Removing a container (deletes runtime instance)
+
+#### Operational Insight
+Proper container lifecycle management prevents resource leakage and maintains host-level stability.
+
+---
+
+### Outcome
+
+Established practical control over Docker container lifecycle, runtime debugging and cleanup operations — core operational competencies in container-based DevOps workflows.
+
+---
+
 ## 🎯 Repository Objective
 
 This repository will progressively demonstrate implementation of:
