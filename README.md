@@ -395,6 +395,63 @@ Established practical control over Docker container lifecycle, runtime debugging
 
 ---
 
+---
+
+## Day 8 — Docker Image Build & Custom Container Deployment
+
+### Build Context
+
+Implemented custom Docker image creation using a Dockerfile to package application content into a reusable container image.
+
+---
+
+### Dockerfile Implementation
+
+- Created custom `index.html` web page
+- Used official **nginx base image**
+- Implemented Dockerfile to copy static content into container image
+
+#### Engineering Insight
+Dockerfile instructions create immutable image layers, enabling reproducible and versioned application builds.
+
+---
+
+### Image Build Process
+
+- Built custom image using `docker build`
+- Verified successful image creation and local image registry presence
+
+#### Validation
+Confirmed image availability using Docker image listing prior to deployment.
+
+---
+
+### Custom Container Deployment
+
+- Stopped and removed previously running containers
+- Deployed container from custom image
+- Configured port binding:
+
+`Host Port 8080 → Container Port 80`
+
+---
+
+### Connectivity Verification & Debugging
+
+- Verified local container response using `curl localhost`
+- Diagnosed external access path
+- Confirmed Security Group alignment with exposed port
+
+---
+
+### Operational Outcome
+
+Successfully packaged application content into a reusable Docker image and deployed it as a publicly accessible containerized web service.
+
+This establishes the foundation for repeatable container-based deployments and future CI/CD automation.
+
+---
+
 ## 🎯 Repository Objective
 
 This repository will progressively demonstrate implementation of:
