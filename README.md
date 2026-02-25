@@ -395,8 +395,6 @@ Established practical control over Docker container lifecycle, runtime debugging
 
 ---
 
----
-
 ## Day 8 — Docker Image Build & Custom Container Deployment
 
 ### Build Context
@@ -449,6 +447,63 @@ Confirmed image availability using Docker image listing prior to deployment.
 Successfully packaged application content into a reusable Docker image and deployed it as a publicly accessible containerized web service.
 
 This establishes the foundation for repeatable container-based deployments and future CI/CD automation.
+
+---
+
+## Day 9 — CI/CD Foundations & Pipeline Design
+
+### Context
+
+Established the foundational understanding required to design and implement automated build and deployment pipelines.
+
+---
+
+### Deployment Model Evolution
+
+Reviewed traditional manual deployment workflows and their limitations:
+
+- High risk of human error
+- Inconsistent deployment environments
+- Lack of repeatability and auditability
+
+#### Engineering Insight
+Modern DevOps practices shift deployments from manual operations to automated, version-controlled pipelines.
+
+---
+
+### CI vs CD Concepts
+
+Defined key pipeline stages:
+
+- **Continuous Integration:** Automated build and validation of code changes
+- **Continuous Deployment:** Automated release of validated changes to runtime environments
+
+Understood how CI/CD enables rapid and reliable software delivery.
+
+---
+
+### Pipeline Architecture Overview
+
+Studied pipeline as a sequence of automated stages including:
+
+- Source control trigger (GitHub)
+- Build & image creation (Docker)
+- Deployment to cloud infrastructure (AWS)
+
+---
+
+### Tooling Decision
+
+Evaluated common CI/CD platforms and selected **GitHub Actions** as the primary automation tool for upcoming implementation.
+
+#### Rationale
+GitHub Actions provides native integration with repository workflows and simplifies pipeline orchestration.
+
+---
+
+### Outcome
+
+Established conceptual and architectural foundation required to implement end-to-end CI/CD automation in upcoming stages.
 
 ---
 
