@@ -550,7 +550,65 @@ Initial workflow execution failed due to missing Dockerfile reference within rep
 
 Established automated CI workflow that validates Docker build process on every code push, ensuring consistent and repeatable build verification.
 
+
 ---
+
+## Day 11 — Continuous Deployment to EC2 via GitHub Actions
+
+### Deployment Context
+
+Extended CI workflow to implement automated deployment of containerized application to a live EC2 environment.
+
+---
+
+### Static Public Endpoint Configuration
+
+- Allocated and associated **Elastic IP** with EC2 instance
+- Ensured consistent public endpoint for automated deployments
+
+#### Engineering Insight
+Static IP allocation prevents deployment failures caused by dynamic IP changes.
+
+---
+
+### Secure Remote Access Setup
+
+- Generated SSH key pair on EC2 instance
+- Added public key to `authorized_keys`
+- Stored private key securely in **GitHub Secrets**
+
+#### Security Consideration
+Secrets management prevents exposure of credentials in repository code and enables secure automation.
+
+---
+
+### Continuous Deployment Workflow
+
+Extended GitHub Actions pipeline to include remote deployment stage using `appleboy/ssh-action`.
+
+Automated deployment steps:
+
+1. Connect to EC2 via SSH
+2. Stop existing container
+3. Build updated Docker image
+4. Launch new container instance
+
+---
+
+### Deployment Flow
+
+**Code Push → CI Build → SSH Connection → Container Update → Live Deployment**
+
+Validated full automation from source control to running infrastructure.
+
+---
+
+### Operational Outcome
+
+Achieved end-to-end CI/CD pipeline enabling automated deployment of containerized application to EC2 on every code push.
+
+---
+
 
 ## 🎯 Repository Objective
 
