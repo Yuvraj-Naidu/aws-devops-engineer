@@ -6,9 +6,12 @@ on:
       - main
 
 jobs:
-  build:
+  build-docker:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Pipeline Started
-        run: echo "CI pipeline successfully triggered"
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      
+      - name: Build Docker Image
+        run: docker build -t my-nginx-app .
