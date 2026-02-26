@@ -609,6 +609,69 @@ Achieved end-to-end CI/CD pipeline enabling automated deployment of containerize
 
 ---
 
+## Day 12 — Production-Style CI/CD with Docker Hub Registry
+
+### Pipeline Evolution Context
+
+Refactored deployment pipeline to follow production-aligned image distribution practices using a centralized container registry.
+
+---
+
+### Container Registry Integration
+
+- Created Docker Hub registry account
+- Built and pushed Docker image manually for initial validation
+- Stored Docker Hub credentials securely in GitHub Secrets
+
+#### Engineering Insight
+Using a centralized registry decouples image build from runtime servers and enables consistent deployments across environments.
+
+---
+
+### CI Pipeline Enhancements
+
+Updated GitHub Actions workflow to:
+
+- Authenticate to Docker Hub from CI runner
+- Build Docker image during pipeline execution
+- Push versioned image to Docker Hub registry
+
+---
+
+### Deployment Strategy Change
+
+Shifted deployment model from **server-side image builds** to **registry-based image pulls** on EC2.
+
+#### Architectural Improvement
+Runtime servers now pull pre-built images, reducing deployment time and ensuring build consistency.
+
+---
+
+### Production Deployment Flow
+
+**Developer → GitHub → GitHub Actions → Docker Hub → EC2 → Live Application**
+
+Validated full build-once, deploy-many workflow.
+
+---
+
+### Operational Debugging
+
+Resolved real pipeline and infrastructure issues:
+
+- Docker registry authentication failure due to incorrect secret configuration
+- Deployment interruption caused by stopped EC2 instance
+
+#### Operational Insight
+Automated pipelines must account for infrastructure availability and secret management accuracy.
+
+---
+
+### Outcome
+
+Established production-style CI/CD pipeline using centralized image registry and automated deployment workflow.
+
+---
 
 ## 🎯 Repository Objective
 
