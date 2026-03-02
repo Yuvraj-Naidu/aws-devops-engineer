@@ -1,4 +1,4 @@
-name: CI-CD Pipeline
+name: Production CI-CD Pipeline
 
 on:
   push:
@@ -6,35 +6,43 @@ on:
       - main
 
 jobs:
-  build:
+
+  ci-build-and-push:
     runs-on: ubuntu-latest
 
     outputs:
       image_tag: ${{ steps.meta.outputs.tag }}
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Generate Image Tag (Commit SHA)
+      - name: Generate short commit SHA
         id: meta
         run: echo "tag=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
 
-      - name: Docker Login
+      - name: Login to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      - name: Build Docker Image
+      - name: Build Docker Image (SHA tag)
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/my-nginx-app:${{ steps.meta.outputs.tag }} .
 
-      - name: Push Docker Image
+      - name: Tag Image as latest
+        run: docker tag ${{ secrets.DOCKER_USERNAME }}/my-nginx-app:${{ steps.meta.outputs.tag }} ${{ secrets.DOCKER_USERNAME }}/my-nginx-app:latest
+
+      - name: Push SHA Tag
         run: docker push ${{ secrets.DOCKER_USERNAME }}/my-nginx-app:${{ steps.meta.outputs.tag }}
 
-  deploy:
-    needs: build
+      - name: Push latest Tag
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/my-nginx-app:latest
+
+
+  cd-deploy-ec2:
+    needs: ci-build-and-push
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy to EC2 via SSH
+      - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -43,5 +51,5 @@ jobs:
           script: |
             docker stop my-container || true
             docker rm my-container || true
-            docker pull ${{ secrets.DOCKER_USERNAME }}/my-nginx-app:${{ needs.build.outputs.image_tag }}
-            docker run -d -p 8080:80 --name my-container ${{ secrets.DOCKER_USERNAME }}/my-nginx-app:${{ needs.build.outputs.image_tag }}
+            docker pull ${{ secrets.DOCKER_USERNAME }}/my-nginx-app:${{ needs.ci-build-and-push.outputs.image_tag }}
+            docker run -d -p 8080:80 --name my-container ${{ secrets.DOCKER_USERNAME }}/my-nginx-app:${{ needs.ci-build-and-push.outputs.image_tag }}
